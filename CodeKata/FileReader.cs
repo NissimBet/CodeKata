@@ -11,9 +11,9 @@ namespace CodeKata
             {
                 return File.ReadAllLines(filename);
             }
-            catch (FileNotFoundException e)
+            catch (Exception ex) when (ex is FileNotFoundException || ex is ArgumentException)
             {
-                Console.WriteLine($"Error opening {0}, file could not be found", e.FileName);
+                Console.WriteLine($"Error opening {0}, file could not be found", filename);
                 return new string[0];
             }
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+using System.Globalization
 
 namespace CodeKata
 {
@@ -9,9 +8,10 @@ namespace CodeKata
     {
         static void Main(string[] args)
         {
-            string[] lines = FileReader.ReadFile("./TextFile1.txt");
+            string filename = Console.ReadLine();
+            string[] lines = FileReader.ReadFile(filename);
 
-            Dictionary<string, Driver> drivers = new Dictionary<string, Driver>();
+            DriverStore drivers = new DriverStore();
 
             foreach (string line in lines)
             {
@@ -20,15 +20,12 @@ namespace CodeKata
                 string driverName = separatedLines[1];
 
                 if (command.ToUpper() == "DRIVER")
-                {
-                    if (!drivers.ContainsKey(driverName))
-                    {
-                        drivers.Add(driverName, new Driver(driverName));
-                    }
+                { 
+                    drivers.AddDriver(new Driver(driverName));
                 }
                 else if (command.ToUpper() == "TRIP")
                 {
-                    if (drivers.ContainsKey(driverName))
+                    if (drivers.HasDriver(driverName))
                     {
                         DateTime startTime = DateTime.ParseExact(separatedLines[2], "HH:mm", CultureInfo.InvariantCulture);
                         DateTime endTime = DateTime.ParseExact(separatedLines[3], "HH:mm", CultureInfo.InvariantCulture);
@@ -38,7 +35,7 @@ namespace CodeKata
 
                         if (5 <= newTrip.Speed && newTrip.Speed <= 100)
                         {
-                            drivers[driverName].AddTrip(newTrip);
+                            drivers.GetDriver(driverName).AddTrip(newTrip);
                         }
                     }
                     else
@@ -48,16 +45,16 @@ namespace CodeKata
                 }
             }
 
-            List<Driver> sortedDrivers = drivers.Values.OrderByDescending(driver => driver.TotalDistance).ToList();
+            List<Driver> sortedDrivers = drivers.SortedDrivers();
             foreach (Driver driver in sortedDrivers)
             {
                 if (driver.TotalDistance > 0)
                 {
-                    Console.WriteLine("{0}: {1} miles @ {2} mph", driver.name, Math.Ceiling(driver.TotalDistance), Math.Ceiling(driver.AverageSpeed));
+                    Console.WriteLine("{0}: {1} miles @ {2} mph", driver.name, Math.Round(driver.TotalDistance), Math.Round(driver.AverageSpeed));
                 }
                 else
                 {
-                    Console.WriteLine("{0}: {1} miles", driver.name, Math.Ceiling(driver.TotalDistance));
+                    Console.WriteLine("{0}: {1} miles", driver.name, Math.Round(driver.TotalDistance));
                 }
             }
         }
