@@ -10,6 +10,7 @@ namespace CodeKata
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Please write the name or path of the file to analyze");
             string filename = Console.ReadLine();
             string[] lines = FileReader.ReadFile(filename);
 

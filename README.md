@@ -1,11 +1,14 @@
 # CodeKata
 
-Use any .Net language; use any project type.  The goal of this exercise is to get a better glimpse into your thought process.  While this is a simple exercise, think of it as a large project, so put whatever patterns you think would be necessary for an enterprise level application. 
+# Overview 
+
+This is an application developed using .Net Core, version 3.1. 
+
+This project can be run by executing the following code inside the folder Codekata
+```dotnet run```
 
 
-
-Create a ReadMe file to explain any details you think would help verify your work.   
-Submit solution to GitHub or any other publicly accessible code repository.
+# Main Usage
 
 The code will process an input file. 
 
