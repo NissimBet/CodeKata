@@ -12,7 +12,7 @@ namespace CodeKata
         public bool HasDriver(string name) => drivers.ContainsKey(name);
         
         public void AddDriver(Driver driver) {
-            if (HasDriver(driver.name)) { 
+            if (!HasDriver(driver.name)) { 
                 drivers.Add(driver.name, driver); 
             }
         }
